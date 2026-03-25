@@ -15,6 +15,7 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = current_user.expenses.build(expense_params)
+    @expense.date = Date.current
     if @expense.save
       redirect_to expenses_path, notice: "保存しました"
     else
@@ -27,7 +28,7 @@ class ExpensesController < ApplicationController
     if @expense.update(expense_params)
       redirect_to expenses_path, notice: "更新しました"
     else
-      redirect_to edit_expense_path, alert: "更新に失敗しました"
+      render edit_expense_path, alert: "更新に失敗しました"
     end
   end
 

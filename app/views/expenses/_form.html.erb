@@ -1,0 +1,12 @@
+<%= form_with(model: expense) do |f| %>
+<div>
+    <p>
+        <%=f.label :category_id, "カテゴリー"%>
+        <%= f.collection_select :category_id, Category.all, :id, :name %>
+    </p>
+
+    <%= f.label :amount, "金額" %>
+    <%= f.text_field :amount %>
+    <%= f.submit "保存する" %>
+</div>
+<% end %>

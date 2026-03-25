@@ -1,2 +1,13 @@
-<h1>Expenses#index</h1>
-<p>Find me in app/views/expenses/index.html.erb</p>
+<h1>ダッシュボード</h1>
+<div>
+    <% @expenses.each do |expense| %>
+    <%= expense.category.name %>
+    <%= expense.amount %>
+    <%= expense.date %>
+    <%= link_to "編集", edit_expense_path(expense) %>
+    <%= button_to "削除", expense_path(expense), method: :delete, data:{turbo_confirm:"本当に削除しますか？"} %>
+    <%end%>
+</div>
+<div>
+    <%= link_to "支出を追加する",new_expense_path%>
+</div>
