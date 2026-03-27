@@ -1,0 +1,6 @@
+<%= form_with(model: budget) do |f| %>
+<%= f.label :amount, "金額" %>
+<%= f.text_field :amount %>
+<%= f.month_field :month %>
+<%= f.submit "保存する" %>
+<%end%>
