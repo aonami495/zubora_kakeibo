@@ -21,7 +21,7 @@ class BudgetsController < ApplicationController
   def update
     @budget = current_user.budgets.find(params[:id])
     @budget.assign_attributes(budget_params)
-    @budget.month = Date.parse(params[:budget][:month] + "-                 01") if params[:budget][:month].present?
+    @budget.month = Date.parse(params[:budget][:month] + "-01") if params[:budget][:month].present?
     if @budget.save
       redirect_to expenses_path, notice: "更新しました"
     else

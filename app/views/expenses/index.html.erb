@@ -1,5 +1,7 @@
 <h1>ダッシュボード</h1>
 
+<h1><%= @current_month.strftime("%Y年%m月") %>のダッシュボード</h1> c
+
 <h2>カテゴリ別支出</h2>
 <% @category_totals.each do |category_id, total| %>
 <p><%= Category.find(category_id).name %>: <%= total %>円</p>
@@ -23,3 +25,6 @@
 <div>
     <%= link_to "支出を追加する",new_expense_path %>
 </div>
+<%= link_to "← #{@current_month.prev_month.strftime('%Y年%m月')}", expenses_path(month: @current_month.prev_month.strftime("%Y-%m")) %>
+<%= @current_month.strftime("%Y年%m月") %>
+<%= link_to "#{@current_month.next_month.strftime('%Y年%m月')} →", expenses_path(month: @current_month.next_month.strftime("%Y-%m")) %>
