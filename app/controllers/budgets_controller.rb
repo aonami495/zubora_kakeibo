@@ -5,11 +5,12 @@ class BudgetsController < ApplicationController
   end
 
   def edit
-    @budget = current_user.budgets.find(params: [ id ])
+    @budget = current_user.budgets.find(params[:id])
   end
 
   def create
     @budget = current_user.budgets.build(budget_params)
+    @budget.month = Date.parse(params[:budget][:month] + "-01") if params[:budget][:month].present?
     if @budget.save
       redirect_to expenses_path, notice: "予算を設定しました"
     else
@@ -19,7 +20,9 @@ class BudgetsController < ApplicationController
 
   def update
     @budget = current_user.budgets.find(params[:id])
-    if @budget.update(budget_params)
+    @budget.assign_attributes(budget_params)
+    @budget.month = Date.parse(params[:budget][:month] + "-                 01") if params[:budget][:month].present?
+    if @budget.save
       redirect_to expenses_path, notice: "更新しました"
     else
       render :edit, status: :unprocessable_entity

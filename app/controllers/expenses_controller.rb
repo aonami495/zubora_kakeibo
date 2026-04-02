@@ -1,7 +1,11 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @expenses = current_user.expenses.includes(:category).order(date: :desc)
+    month_range = Date.current.beginning_of_month..Date.current.end_of_month
+    @expenses = current_user.expenses.includes(:category).where(date: month_range).order(date: :desc)
+    @category_totals = current_user.expenses.where(date: month_range).group(:category_id).sum(:amount)
+    @total = @expenses.sum(:amount)
+    @budget = current_user.budgets.find_by(month: Date.current.beginning_of_month)
   end
 
 
